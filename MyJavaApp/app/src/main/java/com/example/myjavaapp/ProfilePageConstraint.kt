@@ -1,5 +1,7 @@
 package com.example.myjavaapp
 
+import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,18 +21,24 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
+import androidx.compose.runtime.*
+
 
 
 private val TAG_IMAGE = "image"
@@ -45,6 +53,23 @@ private val MARGIN = 16.dp
 
 @Composable
 fun ProfilePageConstraint() {
+
+        // 新增方向监测代码
+    val configuration = LocalConfiguration.current
+    var currentOrientation by remember { mutableStateOf(configuration.orientation) }
+    
+    LaunchedEffect(configuration) {
+        if (currentOrientation != configuration.orientation) {
+            currentOrientation = configuration.orientation
+            val orientationName = when (configuration.orientation) {
+                Configuration.ORIENTATION_LANDSCAPE -> "Landscape"
+                Configuration.ORIENTATION_PORTRAIT -> "Portrait"
+                else -> "Undefined"
+            }
+            Log.d("YDIA", "Orientation changed to: $orientationName")
+        }
+    }
+    
     Card (elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
             .fillMaxSize()
@@ -60,6 +85,7 @@ fun ProfilePageConstraint() {
             )
     ) {
         BoxWithConstraints {
+            println("minWidth: " + minWidth)
             var constraints = if (minWidth < 600.dp)  {
                 portraitConstraints(MARGIN)
             } else {
@@ -154,6 +180,7 @@ fun ProfilePageConstraint() {
     }
 }
 private fun portraitConstraints(margin: Dp): ConstraintSet {
+    println("正在生成约束集...")
 
     return ConstraintSet {
         val image = createRefFor(TAG_IMAGE)
@@ -174,13 +201,11 @@ private fun portraitConstraints(margin: Dp): ConstraintSet {
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }
-
         constrain(country) {
             top.linkTo(name.bottom, margin = margin)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }
-
         constrain(stats) {
             top.linkTo(country.bottom, margin = margin)
             start.linkTo(parent.start, margin = margin)
@@ -216,21 +241,20 @@ private fun landscapeConstraints(margin: Dp): ConstraintSet {
         val messageButton = createRefFor(TAG_MESSAGE)
 
         constrain(image) {
-            top.linkTo(parent.top, margin = margin)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
+            top.linkTo(parent.top)
+            start.linkTo(parent.start, margin = margin)
+            bottom.linkTo(parent.bottom)
+//            end.linkTo(parent.end)
         }
 
         constrain(name) {
             top.linkTo(image.bottom, margin = margin)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
+            start.linkTo(parent.start, margin = margin)
         }
 
         constrain(country) {
             top.linkTo(name.bottom, margin = margin)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
+            start.linkTo(parent.start, margin = margin)
         }
 
         constrain(stats) {
@@ -267,7 +291,7 @@ fun ProfileStat(title: String, count: Int, modifiler: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = Devices.AUTOMOTIVE_1024p, widthDp = 720, heightDp = 360)
 @Composable
 fun PreviewProfilePageConstraint() {
     ProfilePageConstraint()

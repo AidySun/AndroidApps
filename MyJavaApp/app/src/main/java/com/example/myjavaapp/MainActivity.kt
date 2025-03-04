@@ -28,8 +28,10 @@ class MainActivity : ComponentActivity() {
 //                    .padding(top = 18.dp)
 //            ){
 
-                ProfilePageConstraint()
+//                ProfilePageConstraint()
+            GreetingView()
 //            }
+
 
 
 
