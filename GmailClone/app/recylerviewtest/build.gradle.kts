@@ -59,7 +59,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("com.scwang.smart:refresh-layout-horizontal:2.0.0")      //核心必须依赖
+//    implementation("com.scwang.smart:refresh-layout-horizontal:2.0.0")      //核心必须依赖
     implementation("io.github.scwang90:refresh-layout-kernel:3.0.0-alpha")      //核心必须依赖
     implementation("io.github.scwang90:refresh-header-classics:3.0.0-alpha")    //经典刷新头
 

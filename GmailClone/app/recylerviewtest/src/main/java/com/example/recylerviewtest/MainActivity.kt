@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         val refreshLayout = findViewById<View>(R.id.refreshLayout) as RefreshLayout
         refreshLayout.setRefreshHeader(ClassicsHeader(this))
         refreshLayout.setRefreshFooter(ClassicsFooter(this))
@@ -32,6 +31,7 @@ class MainActivity : AppCompatActivity() {
             refreshlayout.finishLoadMore(2000 /*,false*/) //传入false表示加载失败
         }
 
+        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         val items = listOf(

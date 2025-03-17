@@ -1,4 +1,5 @@
 package com.example.recylerviewtest.adapter
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,12 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
         val imageView: ImageView = view.findViewById(R.id.item_image)
         val textView: TextView = view.findViewById(R.id.item_text)
     }
+    
+    // Extension function to convert dp to pixels
+    fun Context.dpToPx(dp: Int): Int {
+        val density = resources.displayMetrics.density
+        return (dp * density).toInt()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_horizontal_list, parent, false)
@@ -23,9 +30,17 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = items[position]
+ val item = items[position]
         holder.imageView.setImageResource(item.imageResId)
         holder.textView.text = item.text
+
+        // Adjust layout parameters for the first item
+        if (position == 0) {
+            val layoutParams = holder.itemView.layoutParams
+            layoutParams.width = holder.itemView.context.dpToPx(200)
+            layoutParams.height = holder.itemView.context.dpToPx(200)
+            holder.itemView.layoutParams = layoutParams
+        }
     }
 
     override fun getItemCount() = items.size
