@@ -3,18 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="200dp"
-    android:layout_gravity="bottom"
-    android:background="@color/black"
     >
-
-<LinearLayout
-    android:id="@+id/ll"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white"
-    >
-
     <ImageView
         android:id="@+id/item_image"
         android:layout_width="80dp"
@@ -22,16 +11,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_foreground"
         android:background="@color/teal_700"
+        android:layout_gravity="bottom"
         />
 
-    <TextView
-        android:id="@+id/item_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Item"
-        android:textAlignment="center"
-        android:background="@color/purple_500"
-        />
-</LinearLayout>
 </FrameLayout>
