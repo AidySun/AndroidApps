@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recylerviewtest.R
@@ -14,10 +15,11 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
 
 
     class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val ll: LinearLayout = view.findViewById(R.id.ll)
         val imageView: ImageView = view.findViewById(R.id.item_image)
         val textView: TextView = view.findViewById(R.id.item_text)
     }
-    
+
     // Extension function to convert dp to pixels
     fun Context.dpToPx(dp: Int): Int {
         val density = resources.displayMetrics.density
@@ -30,16 +32,22 @@ class ItemAdapter(private val items: List<Item>) : RecyclerView.Adapter<ItemAdap
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
- val item = items[position]
+        val item = items[position]
         holder.imageView.setImageResource(item.imageResId)
         holder.textView.text = item.text
 
+        // 确保LinearLayout使用底部对齐
+        // 注意：FrameLayout.LayoutParams才有gravity属性，而不是ViewGroup.MarginLayoutParams
+        val frameParams = holder.ll.layoutParams as android.widget.FrameLayout.LayoutParams
+        frameParams.gravity = android.view.Gravity.BOTTOM
+        holder.ll.layoutParams = frameParams
+
         // Adjust layout parameters for the first item
         if (position == 0) {
-            val layoutParams = holder.itemView.layoutParams
-            layoutParams.width = holder.itemView.context.dpToPx(200)
-            layoutParams.height = holder.itemView.context.dpToPx(200)
-            holder.itemView.layoutParams = layoutParams
+            val layoutParams = holder.ll.layoutParams
+            layoutParams.height = holder.itemView.context.dpToPx(160)
+            layoutParams.width = holder.itemView.context.dpToPx(160)
+            holder.ll.layoutParams = layoutParams
         }
     }
 

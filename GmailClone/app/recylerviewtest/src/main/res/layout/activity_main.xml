@@ -14,10 +14,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:background="@color/purple_200"
-            android:padding="16dp"
-            android:backgroundTint="@color/yellow"
+            android:layout_height="200dp"
+            android:layout_marginStart="100dp"
+            android:overScrollMode="never"
+            android:background="@color/yellow"
+            android:clipToOutline="true"
+            android:requiresFadingEdge="horizontal"
+            android:fadingEdgeLength="80dp"
+            android:fadingEdge="horizontal"
+            android:layout_gravity="bottom"
             />
 
         <com.scwang.smart.refresh.footer.ClassicsFooter

@@ -37,6 +37,15 @@ class MainActivity : AppCompatActivity() {
         val items = listOf(
             Item(R.drawable.ic_launcher_foreground, "Item 1"),
             Item(R.drawable.ic_launcher_foreground, "Item 2"),
+            Item(R.drawable.ic_launcher_foreground, "Item 2"),
+            Item(R.drawable.ic_launcher_foreground, "Item 2"),
+            Item(R.drawable.ic_launcher_foreground, "Item 3"),
+            Item(R.drawable.ic_launcher_foreground, "Item 3"),
+            Item(R.drawable.ic_launcher_foreground, "Item 3"),
+            Item(R.drawable.ic_launcher_foreground, "Item 3"),
+            Item(R.drawable.ic_launcher_foreground, "Item 3"),
+            Item(R.drawable.ic_launcher_foreground, "Item 3"),
+            Item(R.drawable.ic_launcher_foreground, "Item 3"),
             Item(R.drawable.ic_launcher_foreground, "Item 3"),
             Item(R.drawable.ic_launcher_foreground, "Item 4")
         )
